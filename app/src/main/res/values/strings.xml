@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PlaybackPauseTimer</string>
+    <string name="description_text">Automatically pause playback of music service after defined timeout.</string>
+    <string name="start_button">Set</string>
+    <string name="stop_button">Stop</string>
+    <string name="minutes">minutes</string>
+    <string name="zero">0</string>
+    <string name="notification_title_text">Playback Pause Timer</string>
+    <string name="notification_timer_text">"In %s will be paused"</string>
+</resources>
