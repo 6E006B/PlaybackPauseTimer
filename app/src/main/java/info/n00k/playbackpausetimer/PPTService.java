@@ -20,7 +20,7 @@ public class PPTService extends Service {
     public static final String PPT_PAUSE_DELAY_ID = "info.n00k.playbackpausetimer.m_delay";
     public static final int FOREGROUND_NOTIFICATION_ID = 1;
 
-    private int m_delay;
+    private long m_delay;
     private Timer m_timer;
     private long m_target_time;
     private final IBinder m_binder = new PPTBinder();
@@ -65,11 +65,11 @@ public class PPTService extends Service {
 
     private void handleIntent(Intent intent) {
         if(intent.hasExtra(PPT_PAUSE_DELAY_ID)) {
-            m_delay = intent.getIntExtra(PPT_PAUSE_DELAY_ID, 0);
+            m_delay = intent.getLongExtra(PPT_PAUSE_DELAY_ID, 0);
             if(BuildConfig.DEBUG) {
-                Toast.makeText(this, "PPT delay set to " + Integer.toString(m_delay), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "PPT delay set to " + Long.toString(m_delay), Toast.LENGTH_SHORT).show();
             }
-            Log.d("PPT", "delay set to " + Integer.toString(m_delay));
+            Log.d("PPT", "delay set to " + Long.toString(m_delay));
             resetTimer();
         } else {
             Log.d("PPT", "handling intent without delay");
@@ -86,7 +86,7 @@ public class PPTService extends Service {
             Log.d("PPT",  "removed previous timer");
             stopChronometer();
         }
-        if(m_delay > 0) {
+        if(m_delay * 60000 > 0) {
             m_target_time = (new Date()).getTime() + (60000 * m_delay);
             Log.d("PPT", "pause at " + (new Date(m_target_time)).toString());
             m_timer = new Timer();
@@ -102,9 +102,9 @@ public class PPTService extends Service {
                 }
             }, m_delay * 60000);
             if(BuildConfig.DEBUG) {
-                Toast.makeText(this, "PPT reset timer to " + Integer.toString(m_delay), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "PPT reset timer to " + Long.toString(m_delay), Toast.LENGTH_SHORT).show();
             }
-            Log.d("PPT", "reset timer to " + Integer.toString(m_delay));
+            Log.d("PPT", "reset timer to " + Long.toString(m_delay));
             setForeground();
             startChronometer();
         } else {

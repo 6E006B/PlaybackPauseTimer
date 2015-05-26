@@ -68,7 +68,7 @@ public class PPTActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     try {
-                        int delay = Integer.valueOf(delay_field.getText().toString());
+                        long delay = Long.valueOf(delay_field.getText().toString());
                         Activity activity = PPTFragment.this.getActivity();
                         if(BuildConfig.DEBUG) {
                             Toast.makeText(activity, "PPT setting delay " + delay, Toast.LENGTH_SHORT).show();
